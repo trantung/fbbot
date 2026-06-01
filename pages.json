@@ -1,0 +1,26 @@
+{
+  "accountA": {
+    "groups": {
+      "thuenha": "https://www.facebook.com/groups/731268347810116",
+      "thuenha1":"https://www.facebook.com/groups/3497542947232084",
+      "thuenha2":"https://www.facebook.com/groups/Nguoitimdatdattimnguoi"
+    }
+  },
+  "accountB": {
+    "groups": {
+      "thuenha": "https://www.facebook.com/groups/3497542947232084"
+    }
+  },
+  "accountD": {
+    "groups": {
+      "thuenha": "https://www.facebook.com/groups/731268347810116"
+    }
+  },
+  "accountE": {
+    "groups": {
+      "thuenha": "https://www.facebook.com/groups/731268347810116",
+      "thuenha1":"https://www.facebook.com/groups/chothuenhanguyencanvaphongtroHaNoi",
+      "thuenha2":"https://www.facebook.com/groups/Nguoitimdatdattimnguoi"
+    }
+  }
+}

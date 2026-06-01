@@ -1,0 +1,11 @@
+node_modules/
+.env
+profiles/
+cookies/
+logs/
+cache/
+temp/
+*.json
+!pages.json
+!package.json
+!package-lock.json
