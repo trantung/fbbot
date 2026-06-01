@@ -76,17 +76,13 @@ function listAccountsText(config) {
 
   lines.push(
     'Cookie: cookies/<tài khoản>.json\n\n' +
-      'CLI — 1 bài:\n' +
-      '  node post.js <tài khoản> <docId> <folderId>\n\n' +
-      'CLI — nhiều bài (folder cha Drive, mỗi folder con = 1 doc + ảnh):\n' +
-      '  node post.js bulk <tài khoản> <parentFolderId>\n' +
-      '  node post.js list\n\n' +
-      'Telegram — 1 bài:\n' +
-      '  /post <tài khoản> <docId> <folderId>\n\n' +
-      'Telegram — nhiều bài:\n' +
-      '  /bulk <tài khoản> <parentFolderId>\n\n' +
-      'Cache theo ngày: cache/Ymd/... (lần 2 trong ngày không tải Google)\n' +
-      'Bỏ cache: CACHE_REFRESH=true',
+      'Gõ /help trên Telegram để xem đầy đủ lệnh.\n\n' +
+      'Tóm tắt:\n' +
+      '  /sync PARENT_ID — tải folder con về server\n' +
+      '  /push accountA PARENT_ID — đăng từ cache\n' +
+      '  /post accountA DOC FOLDER — 1 bài (Google)\n' +
+      '  /bulk accountA PARENT_ID — sync + đăng luôn\n' +
+      '  /post history — lịch sử lệnh',
   );
 
   return lines.join('\n');

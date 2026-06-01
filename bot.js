@@ -100,34 +100,86 @@ async function runLogged(msg, command, args, purpose, fn) {
   }
 }
 
-const HELP_TEXT = `FB Agent — lệnh Telegram
+const HELP_TEXT = `📘 FB AGENT — HƯỚNG DẪN LỆNH
 
-📋 /list — tài khoản & group
-📜 /post history — lịch sử lệnh (15 gần nhất)
+━━━━━━━━━━━━━━━━━━━━
+📌 CẤU HÌNH (pages.json)
+• Tài khoản: accountA, accountB...
+• Mỗi TK có nhiều group FB
+• Cookie: cookies/<tài khoản>.json
 
-🔄 /sync <PARENT_FOLDER_ID>
-   Tải folder Drive cha về server (cache), KHÔNG đăng FB
+━━━━━━━━━━━━━━━━━━━━
+🔄 QUY TRÌNH NHIỀU BÀI (KHUYÊN DÙNG)
 
-📤 /push <tài khoản> <PARENT_FOLDER_ID>
-   Đăng từ cache đã sync — KHÔNG gọi Google
+Folder Drive CHA chứa nhiều folder CON.
+Mỗi folder CON = 1 Google Doc + nhiều ảnh.
 
-📤 /post <tài khoản> <DOC_ID> <FOLDER_ID>
-   1 bài (Google Doc + folder ảnh)
+Bước 1 — Tải về server (1 lần/ngày):
+/sync <PARENT_FOLDER_ID>
+→ Tải hết folder con → cache trên VPS
+→ Không đăng Facebook
 
-📦 /bulk <tài khoản> <PARENT_FOLDER_ID>
-   Nhiều bài: sync (nếu cần) + đăng luôn
-
-Quy trình khuyên dùng:
-1) /sync PARENT_ID
-2) /push accountA PARENT_ID  (hoặc /push all PARENT_ID)
+Bước 2 — Đăng từ cache (không Google):
+/push <tài khoản> <PARENT_FOLDER_ID>
+→ Đọc file đã tải, đăng lên group
 
 Ví dụ:
 /sync 1ABCxyzParent
 /push accountE 1ABCxyzParent
 /push all 1ABCxyzParent
-/post history
 
-❓ /help`;
+━━━━━━━━━━━━━━━━━━━━
+📋 DANH SÁCH LỆNH
+
+/list
+→ Xem tài khoản + tên group + URL
+
+/post history
+/history [số_dòng]
+→ Xem lịch sử lệnh đã chạy (file logs/commands.jsonl)
+
+━━━━━━━━━━━━━━━━━━━━
+🔄 /sync <PARENT_FOLDER_ID>
+Ý nghĩa: Tải folder Drive cha về server.
+• Quét mọi folder con
+• Mỗi con: 1 Doc → content.txt + tải hết ảnh
+• Lưu: cache/{ngày}/{PARENT}/{folder_con}/
+• Không đăng FB, không tốn lần 2
+
+━━━━━━━━━━━━━━━━━━━━
+📤 /push <tài khoản> <PARENT_FOLDER_ID>
+Ý nghĩa: Đăng từ cache (đã /sync).
+• Không gọi Google Drive/Docs
+• Mỗi folder con = 1 bài
+• Đăng lên MỌI group của tài khoản
+
+<tài khoản> có thể:
+• accountA — 1 TK, mọi group
+• accountA:thuenha — 1 group cụ thể
+• accountA,accountB — nhiều TK
+• all — mọi TK trong pages.json
+
+━━━━━━━━━━━━━━━━━━━━
+📤 /post <tài khoản> <DOC_ID> <FOLDER_ID>
+Ý nghĩa: Đăng 1 bài (cần Google).
+• DOC_ID: ID Google Doc
+• FOLDER_ID: folder ảnh trên Drive
+• Dùng khi chỉ đăng 1 bài lẻ
+
+━━━━━━━━━━━━━━━━━━━━
+📦 /bulk <tài khoản> <PARENT_FOLDER_ID>
+Ý nghĩa: Nhiều bài — tải Google + đăng luôn.
+• Gộp /sync + /push trong 1 lệnh
+• Lần 2 cùng ngày dùng cache, nhanh hơn
+
+━━━━━━━━━━━━━━━━━━━━
+💡 GHI CHÚ
+
+• Sang ngày mới → /sync lại (hoặc CACHE_REFRESH=true)
+• accountA = mọi group của A trong pages.json
+• Lỗi đăng nhập → node login.js accountA
+
+❓ /help — xem lại bảng này`;
 
 bot.onText(/\/start/, async (msg) => {
   if (!isAllowed(msg.chat.id)) {
